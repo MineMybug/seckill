@@ -40,12 +40,18 @@
   		<version>5.1.35</version>
   		<scope>runtime</scope>
   	</dependency>
-    <dependency>
-  		<groupId>c3p0</groupId>
-		<artifactId>c3p0</artifactId>
-  		<version>0.9.1.2</version>
-  	</dependency>
-  	
+   	<dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>druid</artifactId>
+        <version>1.0.20</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-jdbc</artifactId>
+		<version>4.1.7.RELEASE</version>
+	</dependency>
+
   	<!-- dao框架：Mybatis依赖 -->
     <dependency>
   		<groupId>org.mybatis</groupId>
