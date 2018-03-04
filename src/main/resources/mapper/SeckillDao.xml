@@ -10,8 +10,8 @@
     		seckill
     	set number = number - 1
     	where seckill_id = #{seckillId}
-    	and start_time  &lt;= #{killTime},
-    	and end_time &gt;= #{killTime},
+    	and start_time  &lt;= #{killTime}
+    	and end_time &gt;= #{killTime}
     	and number > 0
     </update>
     
