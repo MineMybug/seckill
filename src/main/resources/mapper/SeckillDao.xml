@@ -17,7 +17,7 @@
     
     <!-- 根据id查秒杀对象 -->
     <select id="qureyById" resultType="Seckill" parameterType="long">
-    	select seckill_id, name, number, start_time, create_time
+    	select seckill_id, name, number, start_time, end_time,create_time
     	from seckill
     	where seckill_id = #{seckillId}
     </select>

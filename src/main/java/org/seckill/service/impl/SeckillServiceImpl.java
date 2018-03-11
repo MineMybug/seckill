@@ -8,28 +8,35 @@ import org.junit.experimental.theories.Theories;
 import org.seckill.dao.SeckillDao;
 import org.seckill.dao.SuccessKilledDao;
 import org.seckill.dto.Exposer;
-import org.seckill.dto.SeckillExcutetion;
+import org.seckill.dto.SeckillExcution;
 import org.seckill.entity.Seckill;
 import org.seckill.entity.SuccessKilled;
+import org.seckill.enums.SeckillStateEnum;
 import org.seckill.exception.RepeatKillException;
 import org.seckill.exception.SeckillCloseException;
 import org.seckill.exception.SeckillException;
 import org.seckill.service.SeckillService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
 /**
 * @author rh
 * @version 创建时间：2018年3月11日 上午12:22:40
+* 
+* @Componet (不知道是什么,用这个注解)
 */
+@Service
 public class SeckillServiceImpl implements SeckillService{
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	
+	@Autowired  
 	private SeckillDao seckillDao;
-	
+	@Autowired
 	private SuccessKilledDao successKilledDao;
 	
 	//MD5盐值字符串，用于混淆MD5
@@ -74,10 +81,14 @@ public class SeckillServiceImpl implements SeckillService{
 	}
 
 	@Override
-	public SeckillExcutetion executeSeckill(long seckillId, long userPhone, String md5)
+	@Transactional
+	/**
+	 * 使用註解控制事务方法的优点
+	 */
+	public SeckillExcution executeSeckill(long seckillId, long userPhone, String md5)
 			throws SecurityException, RepeatKillException, SeckillCloseException {
 
-		if(md5 == null || md5.equals(getMd5(seckillId)) ){
+		if(md5 == null || !md5.equals(getMd5(seckillId)) ){
 			throw new SeckillException("seckill data rewrite");
 		}
 		
@@ -100,7 +111,7 @@ public class SeckillServiceImpl implements SeckillService{
 				}else{
 					//秒杀成功
 					SuccessKilled successKilled = successKilledDao.queryByIdWithSeckill(seckillId, userPhone);
-					return new SeckillExcutetion(seckillId, 1, "秒杀成功", successKilled);
+					return new SeckillExcution(seckillId, SeckillStateEnum.SUCCESS, successKilled);
 				}
 			}
 		}catch(SeckillCloseException e1){

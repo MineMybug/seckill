@@ -1,13 +1,14 @@
 package org.seckill.dto;
 
 import org.seckill.entity.SuccessKilled;
+import org.seckill.enums.SeckillStateEnum;
 
 /**
 * @author rh
 * @version 创建时间：2018年3月11日 上午12:07:35
 * 封装秒杀执行后的结果
 */
-public class SeckillExcutetion {
+public class SeckillExcution {
 
 	private long seckillId;
 	
@@ -52,19 +53,24 @@ public class SeckillExcutetion {
 		this.successKilled = successKilled;
 	}
 
-	public SeckillExcutetion(long seckillId, int state, String stateInfo, SuccessKilled successKilled) {
+	public SeckillExcution(long seckillId, SeckillStateEnum stateEnum, SuccessKilled successKilled) {
 		super();
 		this.seckillId = seckillId;
-		this.state = state;
-		this.stateInfo = stateInfo;
+		this.state = stateEnum.getState();
+		this.stateInfo = stateEnum.getStateInfo();
 		this.successKilled = successKilled;
 	}
 
-	public SeckillExcutetion(long seckillId, int state, String stateInfo) {
+	public SeckillExcution(long seckillId, SeckillStateEnum stateEnum) {
 		super();
 		this.seckillId = seckillId;
-		this.state = state;
-		this.stateInfo = stateInfo;
+		this.state = stateEnum.getState();
+		this.stateInfo = stateEnum.getStateInfo();
 	}
-		
+
+	@Override
+	public String toString() {
+		return "SeckillExcution [seckillId=" + seckillId + ", state=" + state + ", stateInfo=" + stateInfo
+				+ ", successKilled=" + successKilled + "]";
+	}
 }
