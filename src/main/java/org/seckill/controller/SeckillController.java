@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @version 1.0
  */
 @Controller
-@RequestMapping("/seckill")
 public class SeckillController {
 
 	@Autowired
